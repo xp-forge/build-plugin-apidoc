@@ -6,27 +6,12 @@
   <target name="prepare"/>
   <target name="test"/>
   <target name="integration-test"/>
-  <target name="pre-package" depends="xp.compile.generate.apidoc"/>
-  <target name="package" depends="xp.package.apidoc"/>
+  <target name="pre-package" depends="plugin:apidoc:generate"/>
+  <target name="package" depends="plugin:apidoc:package"/>
   <target name="post-package"/>
   <target name="verify"/>
   <target name="install"/>
   <target name="publish"/>
-
-  <target name="xp.compile.generate.apidoc.check">
-    <pathconvert property="xp.forge.apidoc.dependency" setonempty="false">
-      <fileset dir="${build.target}" includes="lib/compile/xar/apidoc-*.xar"/>
-    </pathconvert>
-
-    <condition property="xp.forge.apidoc.available">
-      <and>
-        <isset property="build.package"/>
-        <not>
-          <equals arg1="${build.package}" arg2="" trim="true"/>
-        </not>
-      </and>
-    </condition>
-  </target>
 
   <!--
    ! Generate apidoc for package
@@ -37,13 +22,18 @@
    ! * have a "compile" configuration
    !
    !-->
-  <target name="xp.compile.generate.apidoc" depends="xp.compile.generate.apidoc.check" if="xp.forge.apidoc.available">
-    <echo>:: Generating apidoc into ${build.target.reports.documentation}</echo>
+  <target name="plugin:apidoc:generate">
     <mkdir dir="${build.target.reports.documentation}"/>
     <tstamp>
       <format property="TODAY" pattern="yyyy-MM-dd HH:mmZZZZZ" locale="en,UK"/>
     </tstamp>
 
+    <condition property="package" value="${build.package}.**" else ="**">
+      <isset property="build.package"/>
+    </condition>
+
+    <echo>:: Generating apidoc for package ${package}</echo>
+    <echo>   to ${build.target.reports.documentation}</echo>
     <exec
      executable="doclet"
      failonerror="true"
@@ -51,7 +41,7 @@
     >
       <env key="USE_XP" value="${build.target}/bootstrap/compile/"/>
       <arg value="net.xp_forge.apidoc.Doclet"/>
-      <arg value="${build.package}.**"/>
+      <arg value="${package}"/>
       <arg value="-output"/>
       <arg value="${build.target.reports.documentation}"/>
       <arg value="-api"/>
@@ -63,7 +53,7 @@
     </exec>
   </target>
 
-  <target name="xp.package.apidoc" extensionOf="package" depends="xp.compile.generate.apidoc.check" if="xp.forge.apidoc.available">
+  <target name="plugin:apidoc:package">
     <zip file="${build.target}/${ivy.module}-apidoc-${ivy.new.revision}.zip" >
       <zipfileset dir="${build.target.reports.documentation}" includes="**/*" prefix="${ivy.module}/"/>
     </zip>
