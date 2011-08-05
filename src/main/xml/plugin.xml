@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<project name="xp-build-plugin-apidoc">
+  <target name="prepare"/>
+
+  <target name="compile">
+    <echo>Hello World</echo>
+    <echoproperties/>
+  </target>
+</project>
