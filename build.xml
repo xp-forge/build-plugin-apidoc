@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="xp-build-plaugin-apidoc" basedir=".">
-<!--  <property name="xp.publish.resolver" value="public-authenticated"/>-->
+  <property name="xp.publish.resolver" value="public-authenticated"/>
   <import file="${user.home}/.ant/xp-build/build-loader.xml"/>
   <fileset id="build.sources.fileset.php" dir="${basedir}/src/main">
     <include name="xml/**"/>

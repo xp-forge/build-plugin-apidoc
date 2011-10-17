@@ -41,7 +41,14 @@
     >
       <env key="USE_XP" value="${build.target}/bootstrap/compile/"/>
       <arg value="net.xp_forge.apidoc.Doclet"/>
-      <arg value="${package}"/>
+
+      <!-- HACK: Use build.sources instead -->
+      <!-- arg value="-sp"/>
+      <arg value="${build.origdir}/src"/>
+      <arg value="-sp"/>
+      <arg value="${build.origdir}/src/main/php"/ -->
+
+      <arg line="${package}"/>
       <arg value="-output"/>
       <arg value="${build.target.reports.documentation}"/>
       <arg value="-api"/>
