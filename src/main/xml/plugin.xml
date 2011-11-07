@@ -40,8 +40,9 @@
      dir="${build.target}/bootstrap/compile"
     >
       <env key="USE_XP" value="${build.target}/bootstrap/compile/"/>
-      <arg value="-sp"/>
-      <arg value="${build.target.classes}"/>
+      <!-- TODO: There must be a good fix for this: -->
+<!--      <arg value="-sp"/>
+      <arg value="${build.target.classes}"/>-->
 
       <arg value="net.xp_forge.apidoc.Doclet"/>
 
