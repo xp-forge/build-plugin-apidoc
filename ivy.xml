@@ -9,7 +9,7 @@
    organisation="net.xp_framework.build"
    module="plugin-apidoc"
    status="integration"
-   revision="2.0.0"
+   revision="2.0.1"
   >
   </info>
   <configurations>
