@@ -28,6 +28,12 @@
      name="apidoc"
      rev="latest.integration"
      conf="compile"
-    />
+    >
+      <exclude
+       org="net.xp_framework"
+       module="core"
+       conf="compile"
+      />
+    </dependency>
   </dependencies>
 </ivy-module>
